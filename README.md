@@ -1,6 +1,6 @@
 # Auralis Admin
 
-Listen Wise platform administration console built with TanStack Start, React, and Tailwind CSS.
+Listen Wise platform administration console built with Vite, React, TanStack Router, and Tailwind CSS.
 
 ## Setup
 
@@ -20,5 +20,5 @@ npm run preview
 
 ## Deploy
 
-- **Netlify**: uses `netlify.toml`
-- **Vercel**: uses `vercel.json`
+- **Netlify**: uses `netlify.toml` (publishes `dist/`)
+- **Vercel**: uses `vercel.json` (Vite framework, `dist/` output)

@@ -11,7 +11,6 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UsersRouteImport } from './routes/users'
 import { Route as SupportRouteImport } from './routes/support'
-import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RolesRouteImport } from './routes/roles'
 import { Route as ModerationRouteImport } from './routes/moderation'
 import { Route as ListenersRouteImport } from './routes/listeners'
@@ -28,11 +27,6 @@ const UsersRoute = UsersRouteImport.update({
 const SupportRoute = SupportRouteImport.update({
   id: '/support',
   path: '/support',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
-  id: '/sitemap.xml',
-  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RolesRoute = RolesRouteImport.update({
@@ -78,7 +72,6 @@ export interface FileRoutesByFullPath {
   '/listeners': typeof ListenersRoute
   '/moderation': typeof ModerationRoute
   '/roles': typeof RolesRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/support': typeof SupportRoute
   '/users': typeof UsersRoute
   '/module/$slug': typeof ModuleSlugRoute
@@ -90,7 +83,6 @@ export interface FileRoutesByTo {
   '/listeners': typeof ListenersRoute
   '/moderation': typeof ModerationRoute
   '/roles': typeof RolesRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/support': typeof SupportRoute
   '/users': typeof UsersRoute
   '/module/$slug': typeof ModuleSlugRoute
@@ -103,7 +95,6 @@ export interface FileRoutesById {
   '/listeners': typeof ListenersRoute
   '/moderation': typeof ModerationRoute
   '/roles': typeof RolesRoute
-  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/support': typeof SupportRoute
   '/users': typeof UsersRoute
   '/module/$slug': typeof ModuleSlugRoute
@@ -117,7 +108,6 @@ export interface FileRouteTypes {
     | '/listeners'
     | '/moderation'
     | '/roles'
-    | '/sitemap.xml'
     | '/support'
     | '/users'
     | '/module/$slug'
@@ -129,7 +119,6 @@ export interface FileRouteTypes {
     | '/listeners'
     | '/moderation'
     | '/roles'
-    | '/sitemap.xml'
     | '/support'
     | '/users'
     | '/module/$slug'
@@ -141,7 +130,6 @@ export interface FileRouteTypes {
     | '/listeners'
     | '/moderation'
     | '/roles'
-    | '/sitemap.xml'
     | '/support'
     | '/users'
     | '/module/$slug'
@@ -154,7 +142,6 @@ export interface RootRouteChildren {
   ListenersRoute: typeof ListenersRoute
   ModerationRoute: typeof ModerationRoute
   RolesRoute: typeof RolesRoute
-  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   SupportRoute: typeof SupportRoute
   UsersRoute: typeof UsersRoute
   ModuleSlugRoute: typeof ModuleSlugRoute
@@ -174,13 +161,6 @@ declare module '@tanstack/react-router' {
       path: '/support'
       fullPath: '/support'
       preLoaderRoute: typeof SupportRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/sitemap.xml': {
-      id: '/sitemap.xml'
-      path: '/sitemap.xml'
-      fullPath: '/sitemap.xml'
-      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/roles': {
@@ -242,7 +222,6 @@ const rootRouteChildren: RootRouteChildren = {
   ListenersRoute: ListenersRoute,
   ModerationRoute: ModerationRoute,
   RolesRoute: RolesRoute,
-  SitemapDotxmlRoute: SitemapDotxmlRoute,
   SupportRoute: SupportRoute,
   UsersRoute: UsersRoute,
   ModuleSlugRoute: ModuleSlugRoute,
@@ -250,13 +229,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
